@@ -21,7 +21,7 @@ class TransactionList extends StatelessWidget {
                     'No transactions added yet!',
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   Container(
@@ -39,7 +39,7 @@ class TransactionList extends StatelessWidget {
               itemBuilder: (context, index) {
                 return Card(
                   elevation: 5,
-                  margin: EdgeInsets.symmetric(vertical: 8, horizontal: 5),
+                  margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 5),
                   child: ListTile(
                     leading: CircleAvatar(
                       radius: 30,
@@ -59,8 +59,8 @@ class TransactionList extends StatelessWidget {
                         MediaQuery.of(context).size.width > 460 //misal untuk pembedaan tampilan di landscape dan potret
                             ? ElevatedButton.icon(
                                 //lanscape tampil icon dan text
-                                icon: Icon(Icons.delete),
-                                label: Text('Delete'),
+                                icon: const Icon(Icons.delete),
+                                label: const Text('Delete'),
                                 style: ButtonStyle(
                                     backgroundColor: MaterialStateColor.resolveWith((states) => Colors.white),
                                     foregroundColor:
@@ -71,7 +71,7 @@ class TransactionList extends StatelessWidget {
                                     ))
                             : IconButton(
                                 //potrait tampil icon saja
-                                icon: Icon(Icons.delete),
+                                icon: const Icon(Icons.delete),
                                 onPressed: () => deleteTx(transactions[index].id),
                                 color: Theme.of(context).colorScheme.error,
                               ),

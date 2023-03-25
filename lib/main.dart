@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
         textTheme: ThemeData.light().textTheme.copyWith(
               titleMedium: TextStyle(fontFamily: 'OpenSans'),
             ),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           titleTextStyle: TextStyle(fontFamily: 'OpenSans', fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
@@ -111,13 +111,13 @@ class _MyHomePageState extends State<MyHomePage> {
     final isLandscape = myMediaQuery.orientation == Orientation.landscape;
     //final myAppBar = AppBar(
     final myAppBar = AppBar(
-      title: Text(
+      title: const Text(
         'Expense App',
       ),
       actions: [
         IconButton(
           onPressed: () => _startAddNewTransaction(context),
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
         ),
       ],
     );
@@ -190,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ? Container()
                 : FloatingActionButton(
                     onPressed: () => _startAddNewTransaction(context),
-                    child: Icon(Icons.add),
+                    child: const Icon(Icons.add),
                   ),
           );
   }
