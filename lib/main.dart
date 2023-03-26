@@ -105,6 +105,56 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  List<Widget> _buildPotretContent(
+    MediaQueryData myMediaQuery,
+    AppBar myAppBar,
+    Widget txtListWidget,
+  ) {
+    return [
+      Container(
+        height: (myMediaQuery.size.height - myAppBar.preferredSize.height - myMediaQuery.padding.top) * 0.3,
+        child: Chart(recentTransactions: _recentTransactions),
+      ),
+      txtListWidget
+    ];
+  }
+
+  List<Widget> _buildLandscapeContent(
+    MediaQueryData myMediaQuery,
+    AppBar myAppBar,
+    Widget txtListWidget,
+  ) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'Show Chart',
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+          //Switch(
+          Switch.adaptive(
+            //activeColor: Theme.of(context).colorScheme.primary,
+            value: _showChart,
+            onChanged: (bool value) {
+              setState(() {
+                _showChart = value;
+              });
+            },
+          ),
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: (myMediaQuery.size.height - myAppBar.preferredSize.height - myMediaQuery.padding.top) * 0.7,
+              child: Chart(recentTransactions: _recentTransactions),
+            )
+          :
+          //UserTransaction(),
+          txtListWidget
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final myMediaQuery = MediaQuery.of(context);
@@ -137,42 +187,8 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (isLandscape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'Show Chart',
-                    style: Theme.of(context).textTheme.titleSmall,
-                  ),
-                  //Switch(
-                  Switch.adaptive(
-                    //activeColor: Theme.of(context).colorScheme.primary,
-                    value: _showChart,
-                    onChanged: (bool value) {
-                      setState(() {
-                        _showChart = value;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            if (!isLandscape)
-              Container(
-                height: (myMediaQuery.size.height - myAppBar.preferredSize.height - myMediaQuery.padding.top) * 0.3,
-                child: Chart(recentTransactions: _recentTransactions),
-              ),
-            if (!isLandscape) txtListWidget,
-            if (isLandscape)
-              _showChart
-                  ? Container(
-                      height:
-                          (myMediaQuery.size.height - myAppBar.preferredSize.height - myMediaQuery.padding.top) * 0.7,
-                      child: Chart(recentTransactions: _recentTransactions),
-                    )
-                  :
-                  //UserTransaction(),
-                  txtListWidget,
+            if (isLandscape) ..._buildLandscapeContent(myMediaQuery, myAppBar, txtListWidget),
+            if (!isLandscape) ..._buildPotretContent(myMediaQuery, myAppBar, txtListWidget),
           ],
         ),
       ),
